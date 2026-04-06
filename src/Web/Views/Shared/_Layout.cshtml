@@ -14,6 +14,19 @@
         <nav>
             <a href="/">Home</a> |
             <a href="/Games">Games</a>
+            @if (User.Identity?.IsAuthenticated == true)
+            {
+                <span> | @User.Identity.Name</span>
+                <span> | </span>
+                <form asp-controller="Account" asp-action="Logout" method="post" style="display:inline">
+                    <button type="submit">Logout</button>
+                </form>
+            }
+            else
+            {
+                <span> | <a asp-controller="Account" asp-action="Login">Login</a></span>
+                <span> | <a asp-controller="Account" asp-action="Register">Register</a></span>
+            }
         </nav>
     </header>
     <main role="main">

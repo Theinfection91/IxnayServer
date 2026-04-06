@@ -1,0 +1,32 @@
+@model IxnayServer.Web.Models.LoginViewModel
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Login";
+}
+
+<h2>Login</h2>
+
+<form asp-action="Login" method="post">
+    <input type="hidden" asp-for="ReturnUrl" />
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <div>
+        <label asp-for="Email"></label>
+        <input asp-for="Email" autocomplete="email" />
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="Password"></label>
+        <input asp-for="Password" autocomplete="current-password" />
+        <span asp-validation-for="Password" class="text-danger"></span>
+    </div>
+    <div>
+        <label>
+            <input asp-for="RememberMe" /> @Html.DisplayNameFor(m => m.RememberMe)
+        </label>
+    </div>
+
+    <button type="submit">Login</button>
+    &nbsp;|&nbsp;
+    <a asp-action="Register">Create an account</a>
+</form>
