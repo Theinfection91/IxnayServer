@@ -23,7 +23,19 @@ public static class DependencyInjection
         builder.Services.AddDbContext<ApplicationDbContext>((sp, options) =>
         {
             options.AddInterceptors(sp.GetServices<ISaveChangesInterceptor>());
-            options.UseSqlite(connectionString);
+
+            // Use MySQL when connection string looks like MySQL, otherwise fallback to SQLite.
+            if (connectionString.Contains("Server=", StringComparison.OrdinalIgnoreCase) ||
+                connectionString.Contains("User Id=", StringComparison.OrdinalIgnoreCase) ||
+                connectionString.Contains("Uid=", StringComparison.OrdinalIgnoreCase))
+            {
+                options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
+            }
+            else
+            {
+                options.UseSqlite(connectionString);
+            }
+
             options.ConfigureWarnings(warnings => warnings.Ignore(RelationalEventId.PendingModelChangesWarning));
         });
 

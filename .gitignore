@@ -3,6 +3,10 @@
 ##
 ## Get latest from `dotnet new gitignore`
 
+# Local app settings (ignore for security)
+appsettings.json
+appsettings.*.Local.json
+
 # User-specific files
 *.rsuser
 *.suo
@@ -490,3 +494,4 @@ $RECYCLE.BIN/
 *.db
 *.db-shm
 *.db-wal
+/src/Web/appsettings.json
